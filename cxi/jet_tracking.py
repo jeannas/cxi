@@ -134,6 +134,13 @@ def jet_calculate(injector, camera, params):
             # detect the jet in the camera ROI
             ROI_image = get_burst_avg(20, camera.ROI_image)
             rho, theta = cam_utils.jet_detect(ROI_image)
+            
+            # update x-ray beam position
+            beamX_px = params.beam_x_px.get()
+            beamY_px = params.beam_y_px.get()
+            camX, camY = cam_utils.get_cam_coords(beamX_px, beamY_px, params)
+            params.cam_x.put(camX)
+            params.cam_y.put(camY)
 
             # find distance from jet to x-rays
             ROIx = camera.ROI.min_xyz.min_x.get()
