@@ -3,7 +3,7 @@ Methods used for jet tracking:
     get_burst_avg(n, image_plugin)
     set_beam(beamX, beamY, params)
     calibrate(injector, camera, params)
-    jet_calculate(injector, camera, params)
+    jet_calculate(camera, params)
     jet_move(injector, camera, params)
 
 1. Set camera ROI to show only jet
@@ -75,7 +75,6 @@ def calibrate(injector, camera, params):
         EPICS PVs used for recording jet tracking data
     '''
     from time import sleep
-    from ophyd import EpicsSignal
     from cxi import cam_utils
 
     # find jet in camera ROI
@@ -111,7 +110,7 @@ def calibrate(injector, camera, params):
     return
 
 
-def jet_calculate(injector, camera, params):
+def jet_calculate(camera, params):
     '''
     Track the sample jet and calculate the distance to the x-ray beam
 
@@ -125,7 +124,6 @@ def jet_calculate(injector, camera, params):
         EPICS PVs used for recording jet tracking data
     '''
     from cxi import cam_utils
-    import numpy as np
 
     # track jet position
     print('Running...')
@@ -167,7 +165,6 @@ def jet_move(injector, camera, params):
         EPICS PVs used for recording jet tracking data
     '''
     from time import sleep
-    from ophyd import EpicsSignal
     from cxi.move_motor import movex
 
     while True:
